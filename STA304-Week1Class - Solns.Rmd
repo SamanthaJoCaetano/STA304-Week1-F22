@@ -1,0 +1,188 @@
+---
+title: "Week 1 synchronous class and video code"
+date: "Sept 13, 2022"
+author: "Prof. Caetano"
+output:
+  pdf_document: default
+---
+
+The first part of this file has the code for our synchronous class, while the second part includes code from the videos for week 1. While editting this file in the source pane you can use the stacked lines button ot the top right of the source pane to view a table of contents for this document.
+
+# Synchrounous class
+
+## Quick recap of RMarkdown basics
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter* or *Cmd+Shift+Return*.  
+
+### Set up library chunk
+```{r, message=FALSE}
+x <- 2
+```
+
+Sometimes, when you load a package, R prints some messages to tell us what it just did. If you don't want the messages above to appear in my final document, you can put 'message=FALSE' to the top part of the chunk.
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I* or *Cmd+Option+I*.
+
+```{r}
+
+```
+
+
+When you save the notebook, an PDF file containing the code and output will be saved alongside it (click the *Knit* button or press *Ctrl+Shift+K* or *Cmd+Shift+K* to Knit the PDF file).
+
+
+## Avatar data
+
+Let's start by loading our data. 
+```{r, message=FALSE}
+
+library(tidyverse)
+avatar_data <- read_csv("avatar.csv")
+
+a = read_csv("avatar.csv")
+
+```
+
+Our data only appears in the Environment pane if we SAVE it as an object in R, using the assignment operator.
+
+Let's view the data the point and click way. We will often talk about the rows as the observations and the columns as the variables.
+
+Let's look at the data in more 'code-y' ways.
+
+```{r}
+glimpse(avatar_data)
+```
+
+```{r}
+head(avatar_data)
+```
+
+## Pipes
+
+Let's do something kind of silly. What do you expect to get as the result of this code?
+(Note: Keyboard shortcut for pipes: *Ctrl+Shift+M* or *Cmd+Shift+M*)
+
+```{r}
+
+head(avatar_data) %>% glimpe() 
+
+```
+
+Notice the number of rows.
+
+Please post any questions you have about R, RStudio or JupyterHub in Piazza. You are encouraged to answer your classmates' questions for quickest response times, and the teaching team will review all answers to make sure they are complete and add to them if necessary! If you have a question, it is very likely someone else has the same question too!
+
+
+## Tidyverse
+
+In this block of code try to reduce your data frame to only contain lines stated by Katara.  
+
+```{r}
+
+Katara_data <- avatar_data %>% 
+  filter(character == "Katara")
+
+
+```
+
+
+Now try to reduce your data frame to only contain the variables of `mention_appa` and `director`.
+
+```{r}
+
+avatar_data %>% 
+  select(mention_appa, director) 
+
+```
+
+
+Create a histogram of `imdb_rating` in base R:
+
+```{r}
+
+hist(avatar_data$imdb_rating) # hist(avatar_data[, colnum])
+
+```
+
+
+Create a histogram of `imdb_rating` in using ggplot:
+```{r}
+
+ggplot(data = avatar_data, aes(x=imdb_rating)) +
+  geom_histogram(colour="green",
+                 bins=10) 
+
+```
+
+\newpage
+# Video code
+```{r}
+library(tidyverse)
+```
+
+## R Basics (Part 1)
+
+### Using the console as a calculator
+
+```{r}
+2 + 2
+314 - 15
+77 * 88
+14/2
+2^4
+(2+4)*3.5
+
+# note: space don't matter 2+2 is the same as 2 + 2
+```
+
+### Saving objects in R
+
+```{r}
+x <- 2+2
+my_name <- "Prof. Caetano"
+```
+
+### Vectors
+
+```{r}
+my_vector <- c(1, 1, 2, 3, 5, 8, 13)
+is.numeric(my_vector)
+is.character(my_vector)
+```
+
+
+### Comments in R
+
+```{r}
+# I don't want the computer to read this comment about how I am afraid computers will take over the world...
+my_vector <- c(1, 1, 2, 3, 5, 8, 13)
+my_vector
+```
+
+## Meet the data
+```{r}
+avatar <- read_csv(file = "avatar.csv")
+
+# Note that the output below is R being helpful and telling us how it has 
+# interpretted each column of our csv file. Red text isn't always an error!
+```
+
+## R Basics (Part 2)
+
+### The trouble with Tibbles
+
+This is just the code shown in the video, for completeness. We don't need to run it again so I have set eval (whether or not the chunk should be evaluated) to FALSE.
+
+```{r, eval = FALSE}
+read_csv("avatar.csv")
+```
+
+### glimpse() and head()
+
+```{r}
+glimpse(avatar)
+```
+
+
