@@ -106,7 +106,34 @@ avatar_data %>% filter(character=="Aang" | character=="Katara") %>%
 
 ```
 
-Try on your own: Run a hypothesis test to see if Aang or Katara mentions Appa more. (Note, the results may vary based off the employed test)
+
+## Hypothesis
+
+Let's try to run a hypothesis test to see if Aang or Katara mentions Appa more. (Note, the results may vary based off the employed test).
+
+### Null and Alternative Hypothesis:
+
+$$H_0: p_A = p_K$$
+$$H_A: p_A > p_K$$
+### Test Stat
+
+$$Z^* = \frac{(\hat{p}_1 - \hat{p}_2) - 0}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}  }$$
+(https://online.stat.psu.edu/stat415/lesson/9/9.4)
+
+```{r}
+phat1 = 0.0551
+phat2 = 0.0188
+n1= 1796
+n2= 1437
+
+Z_star = (phat1-phat2)/sqrt(phat1*(1-phat1)/n1 + phat2*(1-phat2)/n2)
+Z_star
+
+pvalue = 1-pnorm(Z_star)
+```
+
+The p-value is extremely small, thus there is evidence against the claim that Aang and Katara mention Appa at the same frequency. In fast, there is evidence to suggest that Aang mentions Appa more.
+
 
 
 

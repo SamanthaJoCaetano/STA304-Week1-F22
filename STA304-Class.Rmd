@@ -104,10 +104,18 @@ Exercise: Take 3 minutes to write some code that will calculate the number of li
 
 ```
 
-After class (try on your own): Run a hypothesis test to see if Aang or Katara mentions Appa more. (Note, the results may vary based off the employed test)
-
 
 Go to pollev.com/sta to try this out!
+
+
+
+
+Let's try to run a hypothesis test to see if Aang or Katara mentions Appa more. (Note, the results may vary based off the employed test). 
+
+We will use this test statistic, but there are multiple that can be employed.
+
+$$Z^* = \frac{(\hat{p}_1 - \hat{p}_2) - 0}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}  }$$
+
 
 
 
