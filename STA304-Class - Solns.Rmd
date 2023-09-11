@@ -1,6 +1,6 @@
 ---
 title: "Week 1 synchronous class and video code"
-date: "Sept 13, 2022"
+date: "Sept 14, 2023"
 author: "Prof. Caetano"
 output:
   pdf_document: default
@@ -19,7 +19,11 @@ Try executing this chunk by clicking the *Run* button within the chunk or by pla
 ### Set up library chunk
 ```{r, message=FALSE}
 x <- 2
+
+age = c(1,2,3,10)
 ```
+
+The mean age is `r mean(age)` years old.
 
 Sometimes, when you load a package, R prints some messages to tell us what it just did. If you don't want the messages above to appear in my final document, you can put 'message=FALSE' to the top part of the chunk.
 
@@ -98,23 +102,32 @@ avatar_data %>%
 
 Exercise: Take 3 minutes to write some code that will calculate the number of lines that Katara and Aang each say, and of those lines which proportion mention Appa.
 
-```{r}
+```{r, echo=FALSE}
 avatar_data %>% filter(character=="Aang" | character=="Katara") %>% 
   group_by(character) %>% 
   summarise(num_lines = n(),
             prop_Appa = mean(mention_appa))
+
+
+library(knitr)
+avatar_data %>% filter(character=="Aang" | character=="Katara") %>% 
+  group_by(character) %>% 
+  summarise(num_lines = n(),
+            prop_Appa = mean(mention_appa)) %>% 
+  rename(`Number of lines` = num_lines, `proportion of lines mentioning Appa` = prop_Appa) %>% 
+  kable(caption = "Statistics about lines said by characters Aang and Katara")
 
 ```
 
 
 ## Hypothesis
 
-Let's try to run a hypothesis test to see if Aang or Katara mentions Appa more. (Note, the results may vary based off the employed test).
+Let's try to run a hypothesis test to see if Aang or Katara mentions Appa more. (Note, the results may vary based off the employed test). `r mean(x)`
 
 ### Null and Alternative Hypothesis:
 
 $$H_0: p_A = p_K$$
-$$H_A: p_A > p_K$$
+$$H_A: p_A \ne p_K$$
 ### Test Stat
 
 $$Z^* = \frac{(\hat{p}_1 - \hat{p}_2) - 0}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}  }$$
@@ -129,7 +142,8 @@ n2= 1437
 Z_star = (phat1-phat2)/sqrt(phat1*(1-phat1)/n1 + phat2*(1-phat2)/n2)
 Z_star
 
-pvalue = 1-pnorm(Z_star)
+pvalue = 2*(1-pnorm(Z_star))
+
 ```
 
 The p-value is extremely small, thus there is evidence against the claim that Aang and Katara mention Appa at the same frequency. In fast, there is evidence to suggest that Aang mentions Appa more.
@@ -139,13 +153,13 @@ The p-value is extremely small, thus there is evidence against the claim that Aa
 
 Go to pollev.com/sta to try this out!
 ```{r}
-avatar_data %>% select(mention_appa, character) %>% head(4) 
+#avatar_data %>% select(mention_appa, character) %>% head(4) 
 
-avatar_data %>% filter(character=="Aang") %>% select(mention_appa) 
+#avatar_data %>% filter(character=="Aang") %>% select(mention_appa) 
 
-avatar_data %>% select(mention_appa) %>% group_by(character) %>% head() 
+#avatar_data %>% select(mention_appa) %>% group_by(character) %>% head() 
 
-avatar_data %>% group_by(character) %>% select(mention_appa)
+#avatar_data %>% group_by(character) %>% select(mention_appa)
 
 ```
 
@@ -156,18 +170,24 @@ Create a histogram of `imdb_rating` in base R:
 
 ```{r}
 
-hist(avatar_data$imdb_rating) # hist(avatar_data[, colnum])
+hist(avatar_data$imdb_rating) # hist(avatar_data[, column])
 
 ```
 
 
 Create a histogram of `imdb_rating` in using ggplot:
 ```{r}
+ggplot(data = avatar_data, aes(x=imdb_rating)) +
+  geom_histogram(colour="yellow", fill="yellow",
+                 bins=10)  
+
 
 ggplot(data = avatar_data, aes(x=imdb_rating)) +
-  geom_histogram(colour="green", fill="yellow",
-                 bins=10) +
-  labs(title = "Histogram of IMDb rating", x="IMDb rating")
+  geom_histogram(colour="maroon", fill="gray", bins=10) +
+  labs(title = "Figure 1: Histogram of IMDb rating for 
+       lines of \nAvatar the last Airbender TV show", 
+       x="IMDb rating", y="Number of Lines") +   
+  theme_light()
 
 ```
 
