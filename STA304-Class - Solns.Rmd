@@ -1,6 +1,6 @@
 ---
 title: "Week 1 synchronous class and video code"
-date: "Sept 14, 2023"
+date: "Sept 12, 2023"
 author: "Prof. Caetano"
 output:
   pdf_document: default
